@@ -55,7 +55,7 @@ namespace dbdump {
         }
 
         static void ExportTables(string dbName, string connectionString) {
-            string commandFormat = "[{0}].[{1}].[{2}] out " + Destination + "\\{2}.txt -c -C RAW -t\"|||COL|||\" -r\"|||ROW|||\" -S{3}";
+            string commandFormat = "[{0}].[{1}].[{2}] out " + Destination + "/{2}.txt -c -C RAW -t\"|||COL|||\" -r\"|||ROW|||\" -S{3}";
             string username = "", password = "";
 
             ParseUsernamePassword(connectionString, ref username, ref password);
@@ -82,7 +82,7 @@ namespace dbdump {
                 string command = String.Format(commandFormat, dbName, schema, tableName, Connection.DataSource, username, password);
                 Console.WriteLine("bcp " + command);
 
-                Process.Start("bcp.exe", command);
+                Process.Start("/opt/mssql-tools/bin/bcp", command);
             }
         }
 
